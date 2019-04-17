@@ -8,7 +8,7 @@ import java.util.Queue;
 
 /**
  * This class is an Abstract Graph.
- * Types of Vertices (V) and Edges (E) are not defined by default.
+ * Types of Vertices (V) and Edge (E) are not defined by default.
  * The only constraints on theses types are that Vertices must be Comparable ie.
  * there must be a way to order vertices with one another. This is done through the use of the Comparable interface.
  *

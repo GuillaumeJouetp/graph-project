@@ -1,6 +1,6 @@
 package graphs;
 
-public class Edges {
+public class Edge {
     int destinationID;
     int duration;
     String type;
