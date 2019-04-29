@@ -51,6 +51,9 @@ public class Person {
     public void setRole(String role) {
         this.role = role;
     }
+    public Map<String, String> getProperties() {
+        return properties;
+    }
 
     @Override
     public String toString(){
@@ -73,9 +76,6 @@ public class Person {
     }
     public void setCities(List<String> cities) {
         this.cities = cities;
-    }
-    public Map<String, String> getProperties() {
-        return properties;
     }
     public void setProperties(Map<String, String> properties) {
         this.properties = properties;

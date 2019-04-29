@@ -1,5 +1,5 @@
 This is our awesome project
 
-# Create the graph from data
+# JSON for the data
 
-``https://github.com/rombdn/ratp-gtfs-to-json``
+``http://vasyenmetro.com/data/reseau.json``

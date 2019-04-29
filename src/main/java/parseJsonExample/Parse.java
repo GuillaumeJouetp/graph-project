@@ -19,7 +19,7 @@ public class Parse {
     public static void main(String[] args) throws IOException {
 
         //read json file data to String
-        byte[] jsonData = Files.readAllBytes(Paths.get("D:\\Etudes\\Isep\\A2\\algo_prog\\graph-project\\src\\main\\java\\parseJsonExample\\person.txt"));
+        byte[] jsonData = Files.readAllBytes(Paths.get("E:\\Cours\\A2\\Algo & Programmation Avancé\\Project\\src\\main\\java\\parseJsonExample\\person.txt"));
 
         //create ObjectMapper instance
         ObjectMapper objectMapper = new ObjectMapper();
