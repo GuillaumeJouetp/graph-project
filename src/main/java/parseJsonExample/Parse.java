@@ -28,7 +28,7 @@ public class Parse {
         Person emp = objectMapper.readValue(jsonData, Person.class);
 
         System.out.println("Employee Object\n"+emp);
-
+        /*
         //convert Object to json string
         Person emp1 = createEmployee();
         //configure Object mapper for pretty print
@@ -38,6 +38,8 @@ public class Parse {
         StringWriter stringEmp = new StringWriter();
         objectMapper.writeValue(stringEmp, emp1);
         System.out.println("Employee JSON is\n"+stringEmp);
+
+         */
     }
 
     public static Person createEmployee() {
@@ -63,7 +65,7 @@ public class Parse {
         Map<String, String> props = new HashMap<String, String>();
         props.put("salary", "1000 Rs");
         props.put("age", "28 years");
-        emp.setProperties(props);
+        //emp.setProperties(props);
 
         return emp;
     }

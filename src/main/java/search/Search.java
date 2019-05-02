@@ -12,6 +12,7 @@ public class Search<V> {
      * @param start
      * @return
      */
+    /*
     public List<Integer> dfs(Graph graph, Integer start){
         Stack<Integer> structure = new Stack<>();
         structure.add(start);
@@ -43,13 +44,14 @@ public class Search<V> {
         System.out.println("The Graph is not connected");
         return false;
     }
-
+    */
     /**
      * bfs functions
      * @param graph
      * @param start
      * @return
      */
+    /*
     public List<Integer> bfs(Graph graph, Integer start){
         LinkedList<Integer> structure = new LinkedList<>();
         structure.add(start);
@@ -69,4 +71,5 @@ public class Search<V> {
         System.out.println("BFS :" + visited);
         return visited;
     }
+    **/
 }

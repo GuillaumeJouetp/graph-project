@@ -1,9 +1,12 @@
 package parseJsonExample.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Person {
 
     private int id;
@@ -13,7 +16,7 @@ public class Person {
     private long[] phoneNumbers;
     private String role;
     private List<String> cities;
-    private Map<String, String> properties;
+    //private Map<String, String> properties;
 
     public int getId() {
         return id;
@@ -51,11 +54,7 @@ public class Person {
     public void setRole(String role) {
         this.role = role;
     }
-    public Map<String, String> getProperties() {
-        return properties;
-    }
 
-    @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("***** Employee Details *****\n");
@@ -66,7 +65,7 @@ public class Person {
         sb.append("Phone Numbers="+Arrays.toString(getPhoneNumbers())+"\n");
         sb.append("Address="+getAddress()+"\n");
         sb.append("Cities="+Arrays.toString(getCities().toArray())+"\n");
-        sb.append("Properties="+getProperties()+"\n");
+        //sb.append("Properties="+getProperties()+"\n");
         sb.append("*****************************");
 
         return sb.toString();
@@ -77,7 +76,13 @@ public class Person {
     public void setCities(List<String> cities) {
         this.cities = cities;
     }
+   /* public Map<String, String> getProperties() {
+        return properties;
+    }
+
+    @Override
+
     public void setProperties(Map<String, String> properties) {
         this.properties = properties;
-    }
+    }*/
 }

@@ -1,7 +1,9 @@
 package graphs;
 
 public class Edge {
-    int destinationID;
+
+    private int destinationID;
+
     int duration;
     String type;
     String hourOfOpening;
