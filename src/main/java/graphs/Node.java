@@ -18,7 +18,6 @@ public class Node {
     private String num;
     private String type;
     private String isHub;
-    private Edge[] edges;
 
     public String getNom(){
         return this.nom;
@@ -29,7 +28,7 @@ public class Node {
 
 
     public String toString(){
-        return getNom()+" "+getType();
+        return getNom()+" "+getType()+"\n";
     }
 
 

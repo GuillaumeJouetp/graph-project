@@ -13,6 +13,9 @@ public class Main {
 
         //convert json string to object
         RawGraph rawGraph = objectMapper.readValue(new URL("http://vasyenmetro.com/data/reseau.json"), RawGraph.class);
-        System.out.println("RawGraph Object\n"+ rawGraph);
+        rawGraph.createAgencyList();
+        rawGraph.printEdges(rawGraph.getNode("1710"));
+
+        //System.out.println("RawGraph Object\n"+ rawGraph);
     }
 }
