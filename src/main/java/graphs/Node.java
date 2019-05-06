@@ -22,10 +22,18 @@ public class Node {
     public String getNom(){
         return this.nom;
     }
+
     public String getType(){
         return this.type;
     }
 
+    public String getLat(){
+        return this.lat;
+    }
+
+    public String getLng() {
+        return this.lng;
+    }
 
     public String toString(){
         return getNom()+" "+getType()+"\n";
