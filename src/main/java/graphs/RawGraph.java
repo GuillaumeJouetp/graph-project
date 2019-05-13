@@ -27,7 +27,7 @@ public class RawGraph {
 
                 Edge newEdge = new Edge(originStation, destinationStation,route.getType(),route.getLigne());
 
-                ArrayList<Edge> originStationEdges = originStation.getNeighbourgs();
+                ArrayList<Edge> originStationEdges = originStation.getNeighbours();
 
                 boolean testExistence = false;
 
@@ -39,14 +39,14 @@ public class RawGraph {
                 }
 
                 if (!testExistence){
-                    originStation.addNeighbourg(newEdge);
+                    originStation.addNeighbour(newEdge);
                 }
             }
         }
     }
 
     public void printEdges(Node station){
-        System.out.println(station.getNeighbourgs());
+        System.out.println(station.getNeighbours());
     }
 
     public Route[] getRoutes(){

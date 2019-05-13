@@ -31,7 +31,7 @@ public class BFS {
             Node node = queue.remove(0);
             this.visited.put(node, true);
 
-            for(Edge neighbours:node.getNeighbourgs()){
+            for(Edge neighbours:node.getNeighbours()){
 
                 Node neighbourNode = neighbours.getDestinationNode();
                 if (!this.visited.containsKey(neighbourNode)){

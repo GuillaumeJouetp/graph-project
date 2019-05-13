@@ -3,9 +3,7 @@ package graphs;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 
@@ -18,14 +16,14 @@ public class Node {
     private String num;
     private String type;
     private String isHub;
-    private ArrayList<Edge> neighbourgs = new ArrayList<>();
+    private ArrayList<Edge> neighbours = new ArrayList<>();
 
-    public ArrayList<Edge> getNeighbourgs() {
-        return this.neighbourgs;
+    public ArrayList<Edge> getNeighbours() {
+        return this.neighbours;
     }
 
-    public void addNeighbourg(Edge edge){
-        this.neighbourgs.add(edge);
+    public void addNeighbour(Edge edge){
+        this.neighbours.add(edge);
     }
 
     public String getNom(){
