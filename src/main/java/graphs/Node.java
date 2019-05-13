@@ -18,6 +18,15 @@ public class Node {
     private String num;
     private String type;
     private String isHub;
+    private ArrayList<Edge> edges = new ArrayList<>();
+
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    public void addEdge(Edge edge){
+        this.edges.add(edge);
+    }
 
     public String getNom(){
         return this.nom;
