@@ -7,7 +7,7 @@ public class BFS {
     private Node originNode;
     private Map<Node, Node> previousNodes;
     private Map<Node, Boolean> visited;
-    private Map<Node, Double> weight;
+    private Map<Node, Integer> weight;
 
     public BFS(Node originNode){
         this.originNode = originNode;
@@ -24,6 +24,7 @@ public class BFS {
         queue.add(originNode);
 
         this.previousNodes.put(originNode,originNode);
+        this.weight.put(originNode,0);
 
         while(queue.size() != 0){
 
@@ -36,6 +37,8 @@ public class BFS {
                 if (!this.visited.containsKey(neighbourNode)){
                     queue.add(neighbourNode);
                     this.previousNodes.put(neighbourNode,node);
+                    int weightOfNode = this.weight.get(node);
+                    this.weight.put(neighbourNode,weightOfNode+1);
                 }
 
             }
@@ -57,4 +60,11 @@ public class BFS {
         return (path);
     }
 
+    public void printPath(Node destination){
+        System.out.println("From : "+originNode.getNom());
+        System.out.println("To : "+destination.getNom());
+        System.out.println("Number of stations : "+weight.get(destination));
+
+        System.out.println(getPath(destination));
+    }
 }
