@@ -1,11 +1,9 @@
 package graphs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.*;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-
 public class RawGraph {
 
     private Map<String, Node> stations;     //Map entre les ID des stations et les objets stations
@@ -13,7 +11,7 @@ public class RawGraph {
 
     public void createAgencyList(){
 
-        for (Route route: this.routes){                         //on récupère les routes
+        for (Route route : this.routes){                         //on récupère les routes
 
             String[] listeArrets = route.getArrets();           //on récupère la liste des arrêts de la route
 
