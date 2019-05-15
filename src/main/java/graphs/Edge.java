@@ -32,7 +32,7 @@ public class Edge {
         return sqrt(pow((x1-x2),2)+pow((y1-y2),2));
     }
 
-    public Node getOriginNode() {
+    public Node getSourceNode() {
         return sourceNode;
     }
 
@@ -53,6 +53,6 @@ public class Edge {
     }
 
     public String toString(){
-        return "From: "+getOriginNode().getNom()+" to: "+getDestinationNode().getNom()+" via: "+getType()+" "+getLigne()+" distance : "+getWeight() +"\n";
+        return "From: "+ getSourceNode().getNom()+" to: "+getDestinationNode().getNom()+" via: "+getType()+" "+getLigne()+" distance : "+getWeight() +"\n";
     }
 }
