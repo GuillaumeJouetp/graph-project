@@ -1,12 +1,10 @@
 package graphs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.ArrayList;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-
 public class Node {
 
     private String lat;
