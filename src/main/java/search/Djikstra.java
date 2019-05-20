@@ -82,6 +82,7 @@ public class Djikstra {
     public void printPath(Node destination){
         System.out.println("From : " + originNode.getNom());
         System.out.println("To : " + destination.getNom());
+        System.out.println("Weight : " + destination.getDistance());
 
         System.out.println(getPath(destination));
     }

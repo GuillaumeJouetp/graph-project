@@ -9,13 +9,13 @@ public class BFS {
 
     private Node originNode;
     private Map<Node, Node> previousNodes;
-    private Map<Node, Boolean> visited;
-    private Map<Node, Integer> weights;
+    private Set<Node> visited;
+    private Map<Node, Double> weights;
 
     public BFS(Node originNode){
         this.originNode = originNode;
         this.previousNodes = new HashMap<>();
-        this.visited = new HashMap<>();
+        this.visited = new HashSet<>();
         this.weights = new HashMap<>();
 
         this.doBFS();
@@ -27,19 +27,20 @@ public class BFS {
         queue.add(originNode);
 
         this.previousNodes.put(originNode,originNode);
-        this.weights.put(originNode,0);
+        this.weights.put(originNode,0.0);
 
         while(queue.size() != 0){
             Node node = queue.pop();
-            this.visited.put(node, true);
+            this.visited.add(node);
 
             for(Edge neighbours : node.getNeighbours()){
-                Node neighbourNode = neighbours.getDestinationNode();
-                if (!this.visited.containsKey(neighbourNode)){
-                    queue.add(neighbourNode);
-                    this.previousNodes.put(neighbourNode,node);
-                    int weightOfNode = this.weights.get(node);
-                    this.weights.put(neighbourNode,weightOfNode+1);
+                Node adjacentNode = neighbours.getDestinationNode();
+                if (!this.visited.contains(adjacentNode)){
+                    queue.add(adjacentNode);
+                    double newWeight = neighbours.getWeight();
+                    this.previousNodes.put(adjacentNode,node);
+                    double weightOfNode = this.weights.get(node);
+                    this.weights.put(adjacentNode,weightOfNode + newWeight);
                 }
             }
         }
@@ -61,7 +62,7 @@ public class BFS {
     public void printPath(Node destination){
         System.out.println("From : " + originNode.getNom());
         System.out.println("To : " + destination.getNom());
-        System.out.println("Number of stations : " + weights.get(destination));
+        System.out.println("Weight : " + weights.get(destination));
 
         System.out.println(getPath(destination));
     }
