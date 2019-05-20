@@ -5,7 +5,7 @@ import graphs.Node;
 
 import java.util.*;
 
-
+// TODO Faire une class abstraite Search qu'implémentent BFS et Djikstra 
 public class Djikstra {
 
     private Node originNode;
