@@ -2,6 +2,8 @@ package graphs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -15,6 +17,25 @@ public class Node {
     private String type;
     private String isHub;
     private ArrayList<Edge> neighbours = new ArrayList<>();
+
+    private Double distance = Double.MAX_VALUE;
+    private List<Node> shortestPath = new LinkedList<>();
+
+    public List<Node> getShortestPath() {
+        return shortestPath;
+    }
+
+    public void setShortestPath(List<Node> shortestPath) {
+        this.shortestPath = shortestPath;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
 
     public ArrayList<Edge> getNeighbours() {
         return this.neighbours;
