@@ -52,6 +52,6 @@ public class Edge {
     }
 
     public String toString(){
-        return "From: "+ getSourceNode().getNom()+" to: "+getDestinationNode().getNom()+" via: "+getType()+" "+getLigne()+" distance : "+getWeight() +"\n";
+        return "From: "+ getSourceNode().getNom()+" to: "+getDestinationNode().getNom()+" via: "+getType()+" "+getLigne()+" weight : "+getWeight() +"\n";
     }
 }
