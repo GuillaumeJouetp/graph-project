@@ -4,6 +4,8 @@ import graphs.Edge;
 import graphs.Node;
 
 import java.util.*;
+import static java.lang.Math.max;
+
 
 public class BFS extends Search {
 
@@ -42,11 +44,21 @@ public class BFS extends Search {
         }
     }
 
+    public int getLongestPath(){
+        Set keys = count.keySet();
+        int maxValue = 0;
+        for (Object key: keys){
+            maxValue = max(maxValue,count.get(key));
+        }
+        return maxValue;
+    }
+
     public void printPath(Node destination){
         System.out.println("From : " + originNode.getNom());
         System.out.println("To : " + destination.getNom());
         System.out.println("Weight : " + count.get(destination));
-
         System.out.println(getPath(destination));
     }
+
+
 }

@@ -44,5 +44,7 @@ public class Node {
         return getNom()+" "+getType()+"\n";
     }
 
-
+    public String getNum() {
+        return num;
+    }
 }

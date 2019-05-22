@@ -6,6 +6,8 @@ import graphs.Node;
 
 import java.util.*;
 
+import static java.lang.Math.max;
+
 public class Djikstra extends Search{
 
     private Map<Node,Double> nodeWeights;
@@ -69,11 +71,24 @@ public class Djikstra extends Search{
         }
     }
 
+    public double getLongestPath(){
+        Set keys = nodeWeights.keySet();
+        double maxValue = 0.;
+        for (Object key: keys){
+            maxValue = max(maxValue,nodeWeights.get(key));
+        }
+        return maxValue;
+    }
+
+
     public void printPath(Node destination){
         System.out.println("From : " + originNode.getNom());
         System.out.println("To : " + destination.getNom());
         System.out.println("Weight : " + this.nodeWeights.get(destination));
-
         System.out.println(getPath(destination));
+    }
+
+    public Map<Node, Double> getNodeWeights() {
+        return nodeWeights;
     }
 }

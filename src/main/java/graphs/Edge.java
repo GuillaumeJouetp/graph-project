@@ -28,7 +28,10 @@ public class Edge {
         double x2 = Double.parseDouble(destination.getLat());
         double y1 = Double.parseDouble(origin.getLng());
         double y2 = Double.parseDouble(destination.getLng());
-        return sqrt(pow((x1-x2),2)+pow((y1-y2),2));
+
+        double euclidianDistance = sqrt(pow((x1-x2),2)+pow((y1-y2),2));
+
+        return euclidianDistance*111.16;
     }
 
     public Node getSourceNode() {
