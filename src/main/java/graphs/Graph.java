@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.*;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class RawGraph {
+public class Graph {
 
     private Map<String, Node> stations;     //Map entre les ID des stations et les objets stations
     private Route[] routes;                 //liste des routes

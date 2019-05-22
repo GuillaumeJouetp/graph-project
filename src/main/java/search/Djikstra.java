@@ -1,34 +1,40 @@
 package search;
 
 import graphs.Edge;
+import graphs.Graph;
 import graphs.Node;
 
 import java.util.*;
 
-// TODO Faire une class abstraite Search qu'implémentent BFS et Djikstra 
-public class Djikstra {
+public class Djikstra extends Search{
 
-    private Node originNode;
-    private Map<Node, Node> previousNodes;
-    private Set<Node> visited;
+    private Map<Node,Double> nodeWeights;
 
-    public Djikstra(Node originNode){
-        this.originNode = originNode;
-        this.previousNodes = new HashMap<>();
+    public Djikstra(Graph graph, String originNode){
+        this.originNode = graph.getNode(originNode);
+        this.path = new HashMap<>();
         this.visited = new HashSet<>();
+        this.nodeWeights = new HashMap<>();
 
+        this.initializeWeights(graph);
         this.doDjikstra();
+    }
+
+    private void initializeWeights(Graph graph) {
+        for (Node node : graph.getListStations()){
+            this.nodeWeights.put(node,Double.MAX_VALUE);
+        }
     }
 
     private void doDjikstra(){
 
         Set<Node> queue = new HashSet<>();
 
-        originNode.setDistance(0.);
+        this.nodeWeights.put(originNode,0.);
         queue.add(originNode);
-        this.previousNodes.put(originNode,originNode);
+        this.path.put(originNode,originNode);
         while (queue.size() != 0) {
-            Node currentNode = getLowestDistanceNode(queue);
+            Node currentNode = getLowestWeightNode(queue);
             queue.remove(currentNode);
             for (Edge neighbour : currentNode.getNeighbours()) {
                 Node adjacentNode = neighbour.getDestinationNode();
@@ -36,53 +42,37 @@ public class Djikstra {
                 if (!this.visited.contains(adjacentNode)) {
                     setMinimumDistance(adjacentNode, edgeWeight, currentNode);
                     queue.add(adjacentNode);
-                    this.previousNodes.put(adjacentNode,currentNode);
+                    this.path.put(adjacentNode,currentNode);
                 }
             }
             this.visited.add(currentNode);
         }
     }
 
-    private static Node getLowestDistanceNode(Set <Node> unsettledNodes) {
-        Node lowestDistanceNode = null;
-        Double lowestDistance = Double.MAX_VALUE;
+    private Node getLowestWeightNode(Set <Node> unsettledNodes) {
+        Node lowestWeightNode = null;
+        Double lowestWeight = Double.MAX_VALUE;
         for (Node node: unsettledNodes) {
-            Double nodeDistance = node.getDistance();
-            if (nodeDistance < lowestDistance) {
-                lowestDistance = nodeDistance;
-                lowestDistanceNode = node;
+            Double nodeWeight = this.nodeWeights.get(node);
+            if (nodeWeight < lowestWeight) {
+                lowestWeight = nodeWeight;
+                lowestWeightNode = node;
             }
         }
-        return lowestDistanceNode;
+        return lowestWeightNode;
     }
 
-    private static void setMinimumDistance(Node evaluationNode, Double edgeWeigh, Node sourceNode) {
-        Double sourceDistance = sourceNode.getDistance();
-        if (sourceDistance + edgeWeigh < evaluationNode.getDistance()) {
-            evaluationNode.setDistance(sourceDistance + edgeWeigh);
-            LinkedList<Node> shortestPath = new LinkedList<>(sourceNode.getShortestPath());
-            shortestPath.add(sourceNode);
-            evaluationNode.setShortestPath(shortestPath);
+    private void setMinimumDistance(Node evaluationNode, Double edgeWeigh, Node sourceNode) {
+        Double sourceWeight = this.nodeWeights.get(sourceNode);
+        if (sourceWeight + edgeWeigh < this.nodeWeights.get(evaluationNode)) {
+            this.nodeWeights.put(evaluationNode, sourceWeight + edgeWeigh);
         }
-    }
-
-    private ArrayList<Node> getPath(Node destination){
-        ArrayList<Node> path = new ArrayList<>();
-        path.add(destination);
-        while (previousNodes.get(destination) != this.originNode){
-            Node previousNode = previousNodes.get(destination);
-            path.add(previousNode);
-            destination = previousNode;
-        }
-        path.add(this.originNode);
-        Collections.reverse(path);
-        return (path);
     }
 
     public void printPath(Node destination){
         System.out.println("From : " + originNode.getNom());
         System.out.println("To : " + destination.getNom());
-        System.out.println("Weight : " + destination.getDistance());
+        System.out.println("Weight : " + this.nodeWeights.get(destination));
 
         System.out.println(getPath(destination));
     }

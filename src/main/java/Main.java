@@ -1,7 +1,7 @@
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import graphs.Graph;
 import search.BFS;
-import graphs.RawGraph;
 import search.Djikstra;
 
 import java.io.*;
@@ -13,18 +13,18 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
 
         /*convert json string to object*/
-        RawGraph rawGraph = objectMapper.readValue(new URL("http://vasyenmetro.com/data/reseau.json"), RawGraph.class);
-        rawGraph.createAgencyList();
-        rawGraph.printEdges(rawGraph.getNode("1839"));
+        Graph g = objectMapper.readValue(new URL("http://vasyenmetro.com/data/reseau.json"), Graph.class);
+        g.createAgencyList();
+        g.printEdges(g.getNode("1839"));
 
         System.out.println("--------------------------BFS------------------------------");
-        BFS bfs = new BFS(rawGraph.getNode("1913"));
-        bfs.printPath(rawGraph.getNode("1839"));
-        //System.out.println("RawGraph Object\n"+ rawGraph);
+        BFS bfs = new BFS(g.getNode("1913"));
+        bfs.printPath(g.getNode("1839"));
+        //System.out.println("Graph Object\n"+ rawGraph);
 
         System.out.println(" ");
         System.out.println("--------------------------Djikstra------------------------------");
-        Djikstra djikstra = new Djikstra(rawGraph.getNode("1913"));
-        djikstra.printPath(rawGraph.getNode("1839"));
+        Djikstra djikstra = new Djikstra(g,"1913");
+        djikstra.printPath(g.getNode("1839"));
     }
 }
