@@ -15,7 +15,8 @@ public class Main {
         /*convert json string to object*/
         Graph graph = objectMapper.readValue(new URL("http://vasyenmetro.com/data/reseau.json"), Graph.class);
         graph.createAgencyList();
-        System.out.println("BFS diameter : "+graph.getBFSDiameter()+" stations");
+        //System.out.println("BFS diameter : "+graph.getBFSDiameter()+" stations");
+        graph.printBFSDiameter();
         System.out.println("Djikstra diameter : "+graph.getDjikstraDiameter()+" km");
 
         /*

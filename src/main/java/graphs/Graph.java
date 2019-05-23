@@ -3,6 +3,7 @@ package graphs;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import search.BFS;
 import search.Djikstra;
+import search.MyTuple;
 
 import java.util.*;
 
@@ -62,13 +63,36 @@ public class Graph {
         return this.stations.get(stationNumber);
     }
 
-    public int getBFSDiameter(){
-        int diameter = 0;
+    public MyTuple getBFSDiameter(){
+        int maxDiameter = 0;
+        BFS bfsDiameter = null;
+        Node destDiameter = null;
         for (Node node : this.getListStations()){
             BFS bfs = new BFS(node);
-            diameter = max(diameter,bfs.getLongestPath());
+            Node destinationNode = bfs.getLongestPathDestination();
+            int diameter = bfs.getCount(destinationNode);
+            if (maxDiameter < diameter){
+                maxDiameter = diameter;
+                bfsDiameter = bfs;
+                destDiameter = destinationNode;
+            }
         }
-        return diameter;
+        MyTuple tuple = new MyTuple(bfsDiameter,destDiameter);
+        return tuple;
+    }
+
+    public void printBFSDiameter(){
+        MyTuple tuple = getBFSDiameter();
+        Node destinationNode = tuple.getDestinationNode();
+        BFS bfs = tuple.getBfs();
+        System.out.println();
+        System.out.println("################### BFS diameter ###################");
+        System.out.print("From : " + bfs.getOriginNode());
+        System.out.print("To : " + destinationNode);
+        System.out.println("Diameter : "+ bfs.getCount(destinationNode));
+        System.out.println("Path : ");
+        System.out.println(bfs.getPath(destinationNode));
+
     }
 
     public double getDjikstraDiameter(){
