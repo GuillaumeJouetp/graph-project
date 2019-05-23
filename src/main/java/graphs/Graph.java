@@ -63,7 +63,7 @@ public class Graph {
         return this.stations.get(stationNumber);
     }
 
-    public MyTuple getBFSDiameter(){
+    public MyTuple<BFS,Node> getBFSDiameter(){
         int maxDiameter = 0;
         BFS bfsDiameter = null;
         Node destDiameter = null;
@@ -77,14 +77,15 @@ public class Graph {
                 destDiameter = destinationNode;
             }
         }
-        MyTuple tuple = new MyTuple(bfsDiameter,destDiameter);
+        MyTuple<BFS,Node> tuple = new MyTuple<>(bfsDiameter,destDiameter);
+
         return tuple;
     }
 
     public void printBFSDiameter(){
-        MyTuple tuple = getBFSDiameter();
+        MyTuple<BFS,Node> tuple = getBFSDiameter();
         Node destinationNode = tuple.getDestinationNode();
-        BFS bfs = tuple.getBfs();
+        BFS bfs = tuple.getSearchMethod();
         System.out.println();
         System.out.println("################### BFS diameter ###################");
         System.out.print("From : " + bfs.getOriginNode());
@@ -95,6 +96,40 @@ public class Graph {
 
     }
 
+
+    public MyTuple<Djikstra,Node> getDjikstraDiameter(){
+        double maxDiameter = 0;
+        Djikstra djikstraDiameter = null;
+        Node destDiameter = null;
+        for (Node node : this.getListStations()){
+            Djikstra djikstra = new Djikstra(this,node.getNum());
+            Node destinationNode = djikstra.getLongestPathDestination();
+            double diameter = djikstra.getNodeWeight(destinationNode);
+            if (maxDiameter < diameter){
+                maxDiameter = diameter;
+                djikstraDiameter = djikstra;
+                destDiameter = destinationNode;
+            }
+        }
+        MyTuple<Djikstra,Node> tuple = new MyTuple<>(djikstraDiameter,destDiameter);
+        return tuple;
+    }
+
+    public void printDjikstraDiameter(){
+        MyTuple<Djikstra,Node> tuple = getDjikstraDiameter();
+        Node destinationNode = tuple.getDestinationNode();
+        Djikstra djikstra = tuple.getSearchMethod();
+        System.out.println();
+        System.out.println("################### Djikstra diameter ###################");
+        System.out.print("From : " + djikstra.getOriginNode());
+        System.out.print("To : " + destinationNode);
+        System.out.println("Diameter : "+ djikstra.getNodeWeight(destinationNode));
+        System.out.println("Path : ");
+        System.out.println(djikstra.getPath(destinationNode));
+
+    }
+
+    /*
     public double getDjikstraDiameter(){
         double diameter = 0.;
         for (Node node : this.getListStations()){
@@ -103,7 +138,7 @@ public class Graph {
         }
         return diameter;
     }
-
+    */
     public Map<String, Node> getStations(){
         return this.stations;
     }

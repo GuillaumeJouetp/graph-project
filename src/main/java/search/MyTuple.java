@@ -1,21 +1,21 @@
 package search;
 
-import graphs.Node;
+public class MyTuple<X, Y> {
 
-public class MyTuple {
-    private BFS bfs;
-    private Node destinationNode;
+    public final X x;
+    public final Y y;
 
-    public MyTuple (BFS bfs, Node destinationNode){
-        this.destinationNode = destinationNode;
-        this.bfs = bfs;
+    public MyTuple(X x, Y y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public BFS getBfs() {
-        return bfs;
+    public X getSearchMethod() {
+        return x;
     }
 
-    public Node getDestinationNode() {
-        return destinationNode;
+
+    public Y getDestinationNode() {
+        return y;
     }
 }
