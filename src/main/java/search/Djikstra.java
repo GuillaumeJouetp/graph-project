@@ -1,6 +1,6 @@
 package search;
 
-import graphs.Edge;
+import graphs.DirectedEdge;
 import graphs.Graph;
 import graphs.Node;
 
@@ -38,7 +38,7 @@ public class Djikstra extends Search{
         while (queue.size() != 0) {
             Node currentNode = getLowestWeightNode(queue);
             queue.remove(currentNode);
-            for (Edge neighbour : currentNode.getNeighbours()) {
+            for (DirectedEdge neighbour : currentNode.getNeighbours()) {
                 Node adjacentNode = neighbour.getDestinationNode();
                 Double edgeWeight = neighbour.getWeight();
                 if (!this.visited.contains(adjacentNode)) {

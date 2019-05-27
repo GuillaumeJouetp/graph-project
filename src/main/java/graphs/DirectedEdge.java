@@ -3,7 +3,7 @@ package graphs;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.pow;
 
-public class Edge {
+public class DirectedEdge {
 
     private Node sourceNode;
     private Node destinationNode;
@@ -14,7 +14,7 @@ public class Edge {
     private String type;
     private String ligne;
 
-    public Edge(Node sourceNode, Node destinationNode, String type, String ligne){
+    public DirectedEdge(Node sourceNode, Node destinationNode, String type, String ligne){
         this.sourceNode = sourceNode;
         this.destinationNode = destinationNode;
         this.weight = this.getDistance(sourceNode,destinationNode);

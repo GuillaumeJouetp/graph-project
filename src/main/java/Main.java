@@ -15,10 +15,13 @@ public class Main {
         /*convert json string to object*/
         Graph graph = objectMapper.readValue(new URL("http://vasyenmetro.com/data/reseau.json"), Graph.class);
         graph.createAgencyList();
+
+        System.out.println("Highest betweenness edge : " + graph.getHighestBetweennessEdge());
+
+        /*
         graph.printBFSDiameter();
         graph.printDjikstraDiameter();
 
-        /*
         System.out.println("BFS diameter : "+graph.getBFSDiameter()+" stations");
         System.out.println("Djikstra diameter : "+graph.getDjikstraDiameter()+" km");
 

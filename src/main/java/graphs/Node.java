@@ -14,14 +14,14 @@ public class Node {
     private String num;
     private String type;
     private String isHub;
-    private ArrayList<Edge> neighbours = new ArrayList<>();
+    private ArrayList<DirectedEdge> neighbours = new ArrayList<>();
 
-    public ArrayList<Edge> getNeighbours() {
+    public ArrayList<DirectedEdge> getNeighbours() {
         return this.neighbours;
     }
 
-    public void addNeighbour(Edge edge){
-        this.neighbours.add(edge);
+    public void addNeighbour(DirectedEdge directedEdge){
+        this.neighbours.add(directedEdge);
     }
 
     public String getNom(){

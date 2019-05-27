@@ -29,21 +29,21 @@ public class Graph {
                 String numerorProchaineStation = listeArrets[i+1];
                 Node destinationStation = this.stations.get(numerorProchaineStation);
 
-                Edge newEdge = new Edge(originStation, destinationStation,route.getType(),route.getLigne());
+                DirectedEdge newDirectedEdge = new DirectedEdge(originStation, destinationStation,route.getType(),route.getLigne());
 
-                ArrayList<Edge> originStationEdges = originStation.getNeighbours();
+                ArrayList<DirectedEdge> originStationDirectedEdges = originStation.getNeighbours();
 
                 boolean testExistence = false;
 
-                for(Edge edge: originStationEdges){
-                    if (edge.getDestinationNode() == newEdge.getDestinationNode()){
+                for(DirectedEdge directedEdge : originStationDirectedEdges){
+                    if (directedEdge.getDestinationNode() == newDirectedEdge.getDestinationNode()){
                         testExistence = true;
                         break;
                     }
                 }
 
                 if (!testExistence){
-                    originStation.addNeighbour(newEdge);
+                    originStation.addNeighbour(newDirectedEdge);
                 }
             }
         }
@@ -127,6 +127,20 @@ public class Graph {
         System.out.println("Path : ");
         System.out.println(djikstra.getPath(destinationNode));
 
+    }
+
+    public UndirectedEdge getHighestBetweennessEdge(){
+        List<UndirectedEdge> edges = new ArrayList<>();
+        for (Node n1 : this.getListStations()){
+            BFS bfs = new BFS(n1);
+            for (Node n2 : this.getListStations()) {
+                if (n1 != n2) {
+                    UndirectedEdge.addEdgesFromPath(edges, bfs.getPath(n2));
+                }
+            }
+        }
+        edges.sort(Comparator.comparing(UndirectedEdge::getEncounters));
+        return edges.get(0);
     }
 
     /*

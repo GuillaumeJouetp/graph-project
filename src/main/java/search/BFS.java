@@ -1,6 +1,6 @@
 package search;
 
-import graphs.Edge;
+import graphs.DirectedEdge;
 import graphs.Node;
 
 import java.util.*;
@@ -32,7 +32,7 @@ public class BFS extends Search {
             Node node = queue.pop();
             this.visited.add(node);
 
-            for(Edge neighbours : node.getNeighbours()){
+            for(DirectedEdge neighbours : node.getNeighbours()){
                 Node adjacentNode = neighbours.getDestinationNode();
                 if (!this.visited.contains(adjacentNode)){
                     queue.add(adjacentNode);
