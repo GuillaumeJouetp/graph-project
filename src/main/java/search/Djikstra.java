@@ -71,6 +71,22 @@ public class Djikstra extends Search{
         }
     }
 
+    public Node getLongestPathDestination(){
+        double maxValue = 0;
+        Node destinationNode = null;
+        for (Node key: nodeWeights.keySet()){
+            if (maxValue < nodeWeights.get(key)){
+                maxValue = nodeWeights.get(key);
+                destinationNode = key;
+            }
+        }
+        return destinationNode;
+    }
+
+    public Double getNodeWeight(Node node){
+        return nodeWeights.get(node);
+    }
+    /*
     public double getLongestPath(){
         Set keys = nodeWeights.keySet();
         double maxValue = 0.;
@@ -79,7 +95,7 @@ public class Djikstra extends Search{
         }
         return maxValue;
     }
-
+    */
 
     public void printPath(Node destination){
         System.out.println("From : " + originNode.getNom());

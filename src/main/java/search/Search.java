@@ -12,7 +12,7 @@ public abstract class Search {
     Map<Node, Node> path;
     Set<Node> visited;
 
-    ArrayList<Node> getPath(Node destination){
+    public ArrayList<Node> getPath(Node destination){
         ArrayList<Node> pathList = new ArrayList<>();
         pathList.add(destination);
         while (this.path.get(destination) != this.originNode){
@@ -25,5 +25,8 @@ public abstract class Search {
         return (pathList);
     }
 
+    public Node getOriginNode(){
+        return (originNode);
+    }
 
 }
