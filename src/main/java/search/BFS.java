@@ -44,13 +44,20 @@ public class BFS extends Search {
         }
     }
 
-    public int getLongestPath(){
-        Set keys = count.keySet();
+    public Node getLongestPathDestination(){
         int maxValue = 0;
-        for (Object key: keys){
-            maxValue = max(maxValue,count.get(key));
+        Node destinationNode = null;
+        for (Node key: count.keySet()){
+            if (maxValue < count.get(key)){
+                maxValue = count.get(key);
+                destinationNode = key;
+            }
         }
-        return maxValue;
+        return destinationNode;
+    }
+
+    public Integer getCount(Node node){
+        return count.get(node);
     }
 
     public void printPath(Node destination){

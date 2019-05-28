@@ -15,10 +15,13 @@ public class Main {
         /*convert json string to object*/
         Graph graph = objectMapper.readValue(new URL("http://vasyenmetro.com/data/reseau.json"), Graph.class);
         graph.createAgencyList();
+        graph.printBFSDiameter();
+        graph.printDjikstraDiameter();
+
+        /*
         System.out.println("BFS diameter : "+graph.getBFSDiameter()+" stations");
         System.out.println("Djikstra diameter : "+graph.getDjikstraDiameter()+" km");
 
-        /*
         System.out.println("--------------------------BFS------------------------------");
         BFS bfs = new BFS(graph.getNode("2015"));
         bfs.printPath(graph.getNode("2016"));
