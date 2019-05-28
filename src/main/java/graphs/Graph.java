@@ -129,7 +129,7 @@ public class Graph {
 
     }
 
-    public UndirectedEdge getHighestBetweennessEdge(){
+    public UndirectedEdge[] getHighestBetweennessEdge(){
         List<UndirectedEdge> edges = new ArrayList<>();
         for (Node n1 : this.getListStations()){
             BFS bfs = new BFS(n1);
@@ -140,7 +140,7 @@ public class Graph {
             }
         }
         edges.sort(Comparator.comparing(UndirectedEdge::getEncounters));
-        return edges.get(0);
+        return new UndirectedEdge[]{edges.get(0), edges.get(1), edges.get(2)};
     }
 
     /*

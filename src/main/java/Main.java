@@ -1,6 +1,7 @@
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import graphs.Graph;
+import graphs.UndirectedEdge;
 import search.BFS;
 import search.Djikstra;
 
@@ -16,7 +17,11 @@ public class Main {
         Graph graph = objectMapper.readValue(new URL("http://vasyenmetro.com/data/reseau.json"), Graph.class);
         graph.createAgencyList();
 
-        System.out.println("Highest betweenness edge : " + graph.getHighestBetweennessEdge());
+        UndirectedEdge[] hbEdges = graph.getHighestBetweennessEdge();
+
+        System.out.println("Highest betweenness edge : " + hbEdges[0]);
+        System.out.println("Second highest betweenness edge : " + hbEdges[1]);
+        System.out.println("Third highest betweenness edge : " + hbEdges[2]);
 
         /*
         graph.printBFSDiameter();
