@@ -20,6 +20,16 @@ public class Node {
         return this.neighbours;
     }
 
+    public Edge getSpecificNeighbours(Node destination) {
+        for(Edge edge:neighbours){
+            if (edge.getDestinationNode() == destination){
+                return edge;
+            }
+        }
+        return null;
+    }
+
+
     public void addNeighbour(Edge edge){
         this.neighbours.add(edge);
     }

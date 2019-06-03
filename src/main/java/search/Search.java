@@ -1,5 +1,6 @@
 package search;
 
+import graphs.Edge;
 import graphs.Node;
 
 import java.util.ArrayList;
@@ -25,6 +26,15 @@ public abstract class Search {
         return (pathList);
     }
 
+    public void printPath(Node destination){
+        ArrayList<Node> pathList = getPath(destination);
+        for (int i =0; i<pathList.size()-1; i++){
+            Node from = pathList.get(i);
+            Node to = pathList.get(i+1);
+            Edge edge = from.getSpecificNeighbours(to);
+            System.out.println(edge);
+        }
+    }
     public Node getOriginNode(){
         return (originNode);
     }
