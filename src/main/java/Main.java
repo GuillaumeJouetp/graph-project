@@ -25,7 +25,7 @@ public class Main {
         System.out.println("Third highest betweenness edge : " + hbEdges.get(2));
         System.out.println("Fourth highest betweenness edge : " + hbEdges.get(3));
 
-        graph.separateClusters();
+        graph.separateClusters(10);
 
         graph.printBFSDiameter();
         graph.printDjikstraDiameter();

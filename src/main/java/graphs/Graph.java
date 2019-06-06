@@ -72,11 +72,14 @@ public class Graph {
         for (Node node : this.getListStations()){
             BFS bfs = new BFS(node);
             Node destinationNode = bfs.getLongestPathDestination();
-            int diameter = bfs.getCount(destinationNode);
-            if (maxDiameter < diameter){
-                maxDiameter = diameter;
-                bfsDiameter = bfs;
-                destDiameter = destinationNode;
+            if(bfs.isPath(destinationNode)) {
+                int diameter = bfs.getCount(destinationNode);
+
+                if (maxDiameter < diameter) {
+                    maxDiameter = diameter;
+                    bfsDiameter = bfs;
+                    destDiameter = destinationNode;
+                }
             }
         }
         MyTuple<BFS,Node> tuple = new MyTuple<>(bfsDiameter,destDiameter);
@@ -105,11 +108,13 @@ public class Graph {
         for (Node node : this.getListStations()){
             Djikstra djikstra = new Djikstra(this,node.getNum());
             Node destinationNode = djikstra.getLongestPathDestination();
-            double diameter = djikstra.getNodeWeight(destinationNode);
-            if (maxDiameter < diameter){
-                maxDiameter = diameter;
-                djikstraDiameter = djikstra;
-                destDiameter = destinationNode;
+            if(djikstra.isPath(destinationNode)) {
+                double diameter = djikstra.getNodeWeight(destinationNode);
+                if (maxDiameter < diameter) {
+                    maxDiameter = diameter;
+                    djikstraDiameter = djikstra;
+                    destDiameter = destinationNode;
+                }
             }
         }
         MyTuple<Djikstra,Node> tuple = new MyTuple<>(djikstraDiameter,destDiameter);
@@ -167,14 +172,18 @@ public class Graph {
         return sb.toString();
     }
 
-    public void separateClusters(){
+    public void separateClusters(int clusterNumber ){
         List<UndirectedEdge> betweenness = getHighestBetweennessEdge();
         Node testNode = getListStations().get(0);
         Node finalNode = null;
-        boolean isPath = true;
-        while(isPath){
+        List<Node> cluster = new ArrayList<>();
+        cluster.add(testNode);
+        while(cluster.size() != clusterNumber ){
+
             BFS bfs = new BFS(testNode);
+
             UndirectedEdge edgeToRemove = betweenness.remove(0);
+
             Node nodeToRemoveEdge1 = edgeToRemove.getNodes()[0];
             Node nodeToRemoveEdge2 = edgeToRemove.getNodes()[1];
 
@@ -182,24 +191,38 @@ public class Graph {
             nodeToRemoveEdge2.removeEdge(nodeToRemoveEdge1);
 
             for(Node node:getListStations()){
-                if (!bfs.isPath(node)){
-                    isPath = false;
+                boolean alreadyInOtherCluster = false;
+
+                for(int i =0; i<cluster.size();i++){
+                    if (cluster.get(i) != testNode) {
+                        BFS bfsTest = new BFS(cluster.get(i));
+                        Set<Node> set = bfsTest.getVisited();
+                        if (set.contains(node)){
+                            alreadyInOtherCluster = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!bfs.isPath(node) && !alreadyInOtherCluster){
+                    cluster.add(node);
                     System.out.println("Other cluster contains : "+node);
-                    finalNode = node;
+                    BFS bfs1 = new BFS(node);
+                    if (bfs1.getSize()> bfs.getSize()){
+                        testNode = node;
+                    }
                     break;
                 }
             }
         }
-        BFS bfs1 = new BFS(testNode);
-        BFS bfs2 = new BFS(finalNode);
-        System.out.println("##################### FIRST CLUSTER ######################");
-        bfs1.printNodeList();
-        System.out.println();
-        System.out.println("##################### SECOND CLUSTER ######################");
-        bfs2.printNodeList();
-        System.out.println();
-        System.out.println("Can you get to "+getNode("1716").getNom()+ " from "+getNode("B_1821").getNom()+" ? ");
-        BFS bfs = new BFS(getNode("1716"));
-        System.out.println(bfs.isPath(getNode("B_1821")));
+        int i = 1;
+        for(Node node : cluster) {
+
+            BFS bfs = new BFS(node);
+            System.out.println("##################### CLUSTER "+i+" ######################");
+            bfs.printNodeList();
+            System.out.println();
+            i++;
+        }
     }
 }

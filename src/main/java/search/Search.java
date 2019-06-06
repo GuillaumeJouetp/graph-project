@@ -33,6 +33,14 @@ public abstract class Search {
         return (originNode);
     }
 
+    public int getSize(){
+        return visited.size();
+    }
+
+    public Set<Node> getVisited(){
+        return visited;
+    }
+
     public void printNodeList (){
         for(Node node : visited){
             System.out.print(node);
