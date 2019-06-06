@@ -99,7 +99,7 @@ public class Djikstra extends Search{
         }
         return maxValue;
     }
-    */
+
 
     public void printPath(Node destination){
         System.out.println("From : " + originNode.getNom());
@@ -107,7 +107,7 @@ public class Djikstra extends Search{
         System.out.println("Weight : " + this.nodeWeights.get(destination));
         System.out.println(getPath(destination));
     }
-
+    */
     public Map<Node, Double> getNodeWeights() {
         return nodeWeights;
     }

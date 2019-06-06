@@ -20,6 +20,7 @@ public class Node {
         return this.neighbours;
     }
 
+
     public void removeEdge(Node node){
         int i = 0;
         while(i<neighbours.size()){
@@ -33,8 +34,16 @@ public class Node {
         }
     }
 
-    public void addNeighbour(DirectedEdge directedEdge){
+    public void addNeighbour(DirectedEdge directedEdge) {
         this.neighbours.add(directedEdge);
+    }
+    public DirectedEdge getSpecificNeighbours(Node destination) {
+        for(DirectedEdge edge:neighbours){
+            if (edge.getDestinationNode() == destination){
+                return edge;
+            }
+        }
+        return null;
     }
 
     public String getNom(){
@@ -54,7 +63,7 @@ public class Node {
     }
 
     public String toString(){
-        return getNom()+" "+getType()+"\n";
+        return getNom()+" "+getType();
     }
 
     public String getNum() {

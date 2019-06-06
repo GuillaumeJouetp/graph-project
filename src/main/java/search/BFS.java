@@ -59,12 +59,5 @@ public class BFS extends Search {
         return count.get(node);
     }
 
-    public void printPath(Node destination){
-        System.out.println("From : " + originNode.getNom());
-        System.out.println("To : " + destination.getNom());
-        System.out.println("Weight : " + count.get(destination));
-        System.out.println(getPath(destination));
-    }
-
 
 }
