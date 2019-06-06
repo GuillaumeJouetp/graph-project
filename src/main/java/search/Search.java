@@ -12,6 +12,10 @@ public abstract class Search {
     Map<Node, Node> path;
     Set<Node> visited;
 
+    public boolean isPath(Node destination){
+        return visited.contains(destination);
+    }
+
     public ArrayList<Node> getPath(Node destination){
         ArrayList<Node> pathList = new ArrayList<>();
         pathList.add(destination);
@@ -29,4 +33,9 @@ public abstract class Search {
         return (originNode);
     }
 
+    public void printNodeList (){
+        for(Node node : visited){
+            System.out.print(node);
+        }
+    }
 }

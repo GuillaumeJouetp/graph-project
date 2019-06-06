@@ -20,6 +20,19 @@ public class Node {
         return this.neighbours;
     }
 
+    public void removeEdge(Node node){
+        int i = 0;
+        while(i<neighbours.size()){
+            DirectedEdge edge = neighbours.get(i);
+            if (edge.destinationNode == node){
+                neighbours.remove(edge);
+            }
+            else {
+                i++;
+            }
+        }
+    }
+
     public void addNeighbour(DirectedEdge directedEdge){
         this.neighbours.add(directedEdge);
     }

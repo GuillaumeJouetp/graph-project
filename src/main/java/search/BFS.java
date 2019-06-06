@@ -16,7 +16,6 @@ public class BFS extends Search {
         this.path = new HashMap<>();
         this.visited = new HashSet<>();
         this.count = new HashMap<>();
-
         this.doBFS();
     }
 

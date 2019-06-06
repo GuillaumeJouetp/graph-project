@@ -3,10 +3,8 @@ package graphs;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.pow;
 
-public class DirectedEdge {
+public class DirectedEdge extends Edge {
 
-    private Node sourceNode;
-    private Node destinationNode;
     /*distance entre les 2 lat/long des 2 nodes*/
     private Double weight;
 

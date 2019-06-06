@@ -7,6 +7,7 @@ import search.Djikstra;
 
 import java.io.*;
 import java.net.URL;
+import java.util.List;
 
 public class Main {
 
@@ -17,18 +18,17 @@ public class Main {
         Graph graph = objectMapper.readValue(new URL("http://vasyenmetro.com/data/reseau.json"), Graph.class);
         graph.createAgencyList();
 
-        UndirectedEdge[] hbEdges = graph.getHighestBetweennessEdge();
+        List<UndirectedEdge> hbEdges = graph.getHighestBetweennessEdge();
 
-        System.out.println("Highest betweenness edge : " + hbEdges[0]);
-        System.out.println("Second highest betweenness edge : " + hbEdges[1]);
-        System.out.println("Third highest betweenness edge : " + hbEdges[2]);
+        System.out.println("Highest betweenness edge : " + hbEdges.get(0));
+        System.out.println("Second highest betweenness edge : " + hbEdges.get(1));
+        System.out.println("Third highest betweenness edge : " + hbEdges.get(2));
+        System.out.println("Fourth highest betweenness edge : " + hbEdges.get(3));
 
-        /*
+        graph.separateClusters();
+
         graph.printBFSDiameter();
         graph.printDjikstraDiameter();
-
-        System.out.println("BFS diameter : "+graph.getBFSDiameter()+" stations");
-        System.out.println("Djikstra diameter : "+graph.getDjikstraDiameter()+" km");
 
         System.out.println("--------------------------BFS------------------------------");
         BFS bfs = new BFS(graph.getNode("2015"));
@@ -38,6 +38,6 @@ public class Main {
         System.out.println("--------------------------Djikstra------------------------------");
         Djikstra djikstra = new Djikstra(graph,"2015");
         djikstra.printPath(graph.getNode("2016"));
-        */
+
     }
 }

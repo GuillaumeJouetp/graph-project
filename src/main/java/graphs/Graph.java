@@ -47,8 +47,10 @@ public class Graph {
                 }
             }
         }
+
         this.stations.remove("2022");
         this.stations.remove("2021");
+
     }
 
     public void printEdges(Node station){
@@ -96,7 +98,6 @@ public class Graph {
 
     }
 
-
     public MyTuple<Djikstra,Node> getDjikstraDiameter(){
         double maxDiameter = 0;
         Djikstra djikstraDiameter = null;
@@ -129,30 +130,21 @@ public class Graph {
 
     }
 
-    public UndirectedEdge[] getHighestBetweennessEdge(){
+    public List<UndirectedEdge> getHighestBetweennessEdge(){
         List<UndirectedEdge> edges = new ArrayList<>();
         for (Node n1 : this.getListStations()){
             BFS bfs = new BFS(n1);
             for (Node n2 : this.getListStations()) {
-                if (n1 != n2) {
+                if (n1 != n2 && bfs.isPath(n2)) {
                     UndirectedEdge.addEdgesFromPath(edges, bfs.getPath(n2));
                 }
             }
         }
         edges.sort(Comparator.comparing(UndirectedEdge::getEncounters));
-        return new UndirectedEdge[]{edges.get(0), edges.get(1), edges.get(2)};
+        Collections.reverse(edges);
+        return edges;
     }
 
-    /*
-    public double getDjikstraDiameter(){
-        double diameter = 0.;
-        for (Node node : this.getListStations()){
-            Djikstra djikstra = new Djikstra(this,node.getNum());
-            diameter = max(diameter,djikstra.getLongestPath());
-        }
-        return diameter;
-    }
-    */
     public Map<String, Node> getStations(){
         return this.stations;
     }
@@ -175,4 +167,39 @@ public class Graph {
         return sb.toString();
     }
 
+    public void separateClusters(){
+        List<UndirectedEdge> betweenness = getHighestBetweennessEdge();
+        Node testNode = getListStations().get(0);
+        Node finalNode = null;
+        boolean isPath = true;
+        while(isPath){
+            BFS bfs = new BFS(testNode);
+            UndirectedEdge edgeToRemove = betweenness.remove(0);
+            Node nodeToRemoveEdge1 = edgeToRemove.getNodes()[0];
+            Node nodeToRemoveEdge2 = edgeToRemove.getNodes()[1];
+
+            nodeToRemoveEdge1.removeEdge(nodeToRemoveEdge2);
+            nodeToRemoveEdge2.removeEdge(nodeToRemoveEdge1);
+
+            for(Node node:getListStations()){
+                if (!bfs.isPath(node)){
+                    isPath = false;
+                    System.out.println("Other cluster contains : "+node);
+                    finalNode = node;
+                    break;
+                }
+            }
+        }
+        BFS bfs1 = new BFS(testNode);
+        BFS bfs2 = new BFS(finalNode);
+        System.out.println("##################### FIRST CLUSTER ######################");
+        bfs1.printNodeList();
+        System.out.println();
+        System.out.println("##################### SECOND CLUSTER ######################");
+        bfs2.printNodeList();
+        System.out.println();
+        System.out.println("Can you get to "+getNode("1716").getNom()+ " from "+getNode("B_1821").getNom()+" ? ");
+        BFS bfs = new BFS(getNode("1716"));
+        System.out.println(bfs.isPath(getNode("B_1821")));
+    }
 }

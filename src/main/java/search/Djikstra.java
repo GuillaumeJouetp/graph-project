@@ -49,6 +49,10 @@ public class Djikstra extends Search{
             }
             this.visited.add(currentNode);
         }
+        while(nodeWeights.values().contains(Double.MAX_VALUE)) {
+            nodeWeights.values().remove(Double.MAX_VALUE);
+        }
+
     }
 
     private Node getLowestWeightNode(Set <Node> unsettledNodes) {

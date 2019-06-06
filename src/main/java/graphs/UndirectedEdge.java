@@ -2,21 +2,19 @@ package graphs;
 
 import java.util.List;
 
-public class UndirectedEdge {
+public class UndirectedEdge extends Edge {
 
-    private Node firstNode;
-    private Node secondNode;
 
     private int encounters; // Pour compter le passage par les edges pour le clustering
 
     public UndirectedEdge(Node firstNode, Node secondNode) {
-        this.firstNode = firstNode;
-        this.secondNode = secondNode;
+        this.sourceNode = firstNode;
+        this.destinationNode = secondNode;
         this.encounters = 1;
     }
 
     public Node[] getNodes() {
-        return new Node[]{firstNode, secondNode};
+        return new Node[]{sourceNode, destinationNode};
     }
 
     public int getEncounters() {
@@ -28,7 +26,7 @@ public class UndirectedEdge {
     }
 
     public String toString() {
-        return "Between: " + getNodes()[0].getNom() + " and: " + getNodes()[1].getNom() + "\n";
+        return "Between: " + getNodes()[0].getNom() + " and: " + getNodes()[1].getNom() + " (visited "+getEncounters()+" times)\n";
     }
 
     public static void addEdgesFromPath(List<UndirectedEdge> edges, List<Node> path) {
@@ -50,6 +48,6 @@ public class UndirectedEdge {
     }
 
     private boolean hasNodes(Node n1, Node n2) {
-        return firstNode == n1 && secondNode == n2 || firstNode == n2 && secondNode == n1;
+        return sourceNode == n1 && destinationNode == n2 || sourceNode == n2 && destinationNode == n1;
     }
 }
