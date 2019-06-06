@@ -14,24 +14,36 @@ public class Node {
     private String num;
     private String type;
     private String isHub;
-    private ArrayList<Edge> neighbours = new ArrayList<>();
+    private ArrayList<DirectedEdge> neighbours = new ArrayList<>();
 
-    public ArrayList<Edge> getNeighbours() {
+    public ArrayList<DirectedEdge> getNeighbours() {
         return this.neighbours;
     }
 
-    public Edge getSpecificNeighbours(Node destination) {
-        for(Edge edge:neighbours){
+
+    public void removeEdge(Node node){
+        int i = 0;
+        while(i<neighbours.size()){
+            DirectedEdge edge = neighbours.get(i);
+            if (edge.destinationNode == node){
+                neighbours.remove(edge);
+            }
+            else {
+                i++;
+            }
+        }
+    }
+
+    public void addNeighbour(DirectedEdge directedEdge) {
+        this.neighbours.add(directedEdge);
+    }
+    public DirectedEdge getSpecificNeighbours(Node destination) {
+        for(DirectedEdge edge:neighbours){
             if (edge.getDestinationNode() == destination){
                 return edge;
             }
         }
         return null;
-    }
-
-
-    public void addNeighbour(Edge edge){
-        this.neighbours.add(edge);
     }
 
     public String getNom(){
@@ -51,7 +63,7 @@ public class Node {
     }
 
     public String toString(){
-        return getNom()+" "+getType()+"\n";
+        return getNom()+" "+getType();
     }
 
     public String getNum() {

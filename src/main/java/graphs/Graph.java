@@ -29,26 +29,28 @@ public class Graph {
                 String numerorProchaineStation = listeArrets[i+1];
                 Node destinationStation = this.stations.get(numerorProchaineStation);
 
-                Edge newEdge = new Edge(originStation, destinationStation,route.getType(),route.getLigne());
+                DirectedEdge newDirectedEdge = new DirectedEdge(originStation, destinationStation,route.getType(),route.getLigne());
 
-                ArrayList<Edge> originStationEdges = originStation.getNeighbours();
+                ArrayList<DirectedEdge> originStationDirectedEdges = originStation.getNeighbours();
 
                 boolean testExistence = false;
 
-                for(Edge edge: originStationEdges){
-                    if (edge.getDestinationNode() == newEdge.getDestinationNode()){
+                for(DirectedEdge directedEdge : originStationDirectedEdges){
+                    if (directedEdge.getDestinationNode() == newDirectedEdge.getDestinationNode()){
                         testExistence = true;
                         break;
                     }
                 }
 
                 if (!testExistence){
-                    originStation.addNeighbour(newEdge);
+                    originStation.addNeighbour(newDirectedEdge);
                 }
             }
         }
+
         this.stations.remove("2022");
         this.stations.remove("2021");
+
     }
 
     public void printEdges(Node station){
@@ -70,11 +72,14 @@ public class Graph {
         for (Node node : this.getListStations()){
             BFS bfs = new BFS(node);
             Node destinationNode = bfs.getLongestPathDestination();
-            int diameter = bfs.getCount(destinationNode);
-            if (maxDiameter < diameter){
-                maxDiameter = diameter;
-                bfsDiameter = bfs;
-                destDiameter = destinationNode;
+            if(bfs.isPath(destinationNode)) {
+                int diameter = bfs.getCount(destinationNode);
+
+                if (maxDiameter < diameter) {
+                    maxDiameter = diameter;
+                    bfsDiameter = bfs;
+                    destDiameter = destinationNode;
+                }
             }
         }
         Tuple<BFS,Node> tuple = new Tuple<>(bfsDiameter,destDiameter);
@@ -87,7 +92,7 @@ public class Graph {
         Node destinationNode = tuple.getDestinationNode();
         BFS bfs = tuple.getSearchMethod();
         System.out.println();
-        System.out.println("################### BFS diameter ###################");
+        System.out.println("-------------------------- BFS diameter --------------------------");
         System.out.print("From : " + bfs.getOriginNode());
         System.out.print("To : " + destinationNode);
         System.out.println("Diameter : "+ bfs.getCount(destinationNode)+" stations");
@@ -105,11 +110,13 @@ public class Graph {
         for (Node node : this.getListStations()){
             Djikstra djikstra = new Djikstra(this,node.getNum());
             Node destinationNode = djikstra.getLongestPathDestination();
-            double diameter = djikstra.getNodeWeight(destinationNode);
-            if (maxDiameter < diameter){
-                maxDiameter = diameter;
-                djikstraDiameter = djikstra;
-                destDiameter = destinationNode;
+            if(djikstra.isPath(destinationNode)) {
+                double diameter = djikstra.getNodeWeight(destinationNode);
+                if (maxDiameter < diameter) {
+                    maxDiameter = diameter;
+                    djikstraDiameter = djikstra;
+                    destDiameter = destinationNode;
+                }
             }
         }
         Tuple<Djikstra,Node> tuple = new Tuple<>(djikstraDiameter,destDiameter);
@@ -121,7 +128,7 @@ public class Graph {
         Node destinationNode = tuple.getDestinationNode();
         Djikstra djikstra = tuple.getSearchMethod();
         System.out.println();
-        System.out.println("################### Djikstra diameter ###################");
+        System.out.println("-------------------------- Djikstra diameter --------------------------");
         System.out.print("From : " + djikstra.getOriginNode());
         System.out.print("To : " + destinationNode);
         System.out.println("Diameter : "+ djikstra.getNodeWeight(destinationNode)+" km");
@@ -130,16 +137,21 @@ public class Graph {
         djikstra.printPath(destinationNode);
     }
 
-    /*
-    public double getDjikstraDiameter(){
-        double diameter = 0.;
-        for (Node node : this.getListStations()){
-            Djikstra djikstra = new Djikstra(this,node.getNum());
-            diameter = max(diameter,djikstra.getLongestPath());
+    public List<UndirectedEdge> getHighestBetweennessEdge(){
+        List<UndirectedEdge> edges = new ArrayList<>();
+        for (Node n1 : this.getListStations()){
+            BFS bfs = new BFS(n1);
+            for (Node n2 : this.getListStations()) {
+                if (n1 != n2 && bfs.isPath(n2)) {
+                    UndirectedEdge.addEdgesFromPath(edges, bfs.getPath(n2));
+                }
+            }
         }
-        return diameter;
+        edges.sort(Comparator.comparing(UndirectedEdge::getEncounters));
+        Collections.reverse(edges);
+        return edges;
     }
-    */
+
     public Map<String, Node> getStations(){
         return this.stations;
     }
@@ -162,4 +174,56 @@ public class Graph {
         return sb.toString();
     }
 
+    public void separateClusters(int clusterNumber ){
+        List<UndirectedEdge> betweenness = getHighestBetweennessEdge();
+        Node testNode = getListStations().get(0);
+        Node finalNode = null;
+        List<Node> cluster = new ArrayList<>();
+        cluster.add(testNode);
+        while(cluster.size() != clusterNumber ){
+
+            BFS bfs = new BFS(testNode);
+
+            UndirectedEdge edgeToRemove = betweenness.remove(0);
+
+            Node nodeToRemoveEdge1 = edgeToRemove.getNodes()[0];
+            Node nodeToRemoveEdge2 = edgeToRemove.getNodes()[1];
+
+            nodeToRemoveEdge1.removeEdge(nodeToRemoveEdge2);
+            nodeToRemoveEdge2.removeEdge(nodeToRemoveEdge1);
+
+            for(Node node:getListStations()){
+                boolean alreadyInOtherCluster = false;
+
+                for(int i =0; i<cluster.size();i++){
+                    if (cluster.get(i) != testNode) {
+                        BFS bfsTest = new BFS(cluster.get(i));
+                        Set<Node> set = bfsTest.getVisited();
+                        if (set.contains(node)){
+                            alreadyInOtherCluster = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!bfs.isPath(node) && !alreadyInOtherCluster){
+                    cluster.add(node);
+                    BFS bfs1 = new BFS(node);
+                    if (bfs1.getSize()> bfs.getSize()){
+                        testNode = node;
+                    }
+                    break;
+                }
+            }
+        }
+        int i = 1;
+        for(Node node : cluster) {
+
+            BFS bfs = new BFS(node);
+            System.out.println("##################### CLUSTER "+i+" ######################");
+            bfs.printNodeList();
+            System.out.println();
+            i++;
+        }
+    }
 }
