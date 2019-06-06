@@ -92,7 +92,7 @@ public class Graph {
         Node destinationNode = tuple.getDestinationNode();
         BFS bfs = tuple.getSearchMethod();
         System.out.println();
-        System.out.println("################### BFS diameter ###################");
+        System.out.println("-------------------------- BFS diameter --------------------------");
         System.out.print("From : " + bfs.getOriginNode());
         System.out.print("To : " + destinationNode);
         System.out.println("Diameter : "+ bfs.getCount(destinationNode));
@@ -126,7 +126,7 @@ public class Graph {
         Node destinationNode = tuple.getDestinationNode();
         Djikstra djikstra = tuple.getSearchMethod();
         System.out.println();
-        System.out.println("################### Djikstra diameter ###################");
+        System.out.println("-------------------------- Djikstra diameter --------------------------");
         System.out.print("From : " + djikstra.getOriginNode());
         System.out.print("To : " + destinationNode);
         System.out.println("Diameter : "+ djikstra.getNodeWeight(destinationNode));
@@ -206,7 +206,6 @@ public class Graph {
 
                 if (!bfs.isPath(node) && !alreadyInOtherCluster){
                     cluster.add(node);
-                    System.out.println("Other cluster contains : "+node);
                     BFS bfs1 = new BFS(node);
                     if (bfs1.getSize()> bfs.getSize()){
                         testNode = node;

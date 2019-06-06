@@ -26,7 +26,7 @@ public class UndirectedEdge extends Edge {
     }
 
     public String toString() {
-        return "Between: " + getNodes()[0].getNom() + " and: " + getNodes()[1].getNom() + " (visited "+getEncounters()+" times)\n";
+        return "Between " + getNodes()[0].getNom() + " and " + getNodes()[1].getNom() + " (visited "+getEncounters()+" times)\n";
     }
 
     public static void addEdgesFromPath(List<UndirectedEdge> edges, List<Node> path) {
