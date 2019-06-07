@@ -8,18 +8,18 @@ import java.util.*;
 
 import static java.lang.Math.max;
 
-public class Djikstra extends Search{
+public class Dijkstra extends Search{
 
     private Map<Node,Double> nodeWeights;
 
-    public Djikstra(Graph graph, String originNode){
+    public Dijkstra(Graph graph, String originNode){
         this.originNode = graph.getNode(originNode);
         this.path = new HashMap<>();
         this.visited = new HashSet<>();
         this.nodeWeights = new HashMap<>();
 
         this.initializeWeights(graph);
-        this.doDjikstra();
+        this.doDijkstra();
     }
 
     private void initializeWeights(Graph graph) {
@@ -28,7 +28,7 @@ public class Djikstra extends Search{
         }
     }
 
-    private void doDjikstra(){
+    private void doDijkstra(){
 
         Set<Node> queue = new HashSet<>();
 

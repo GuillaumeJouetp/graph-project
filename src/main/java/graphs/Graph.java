@@ -2,7 +2,7 @@ package graphs;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import search.BFS;
-import search.Djikstra;
+import search.Dijkstra;
 import utils.Tuple;
 
 import java.util.*;
@@ -93,48 +93,46 @@ public class Graph {
         BFS bfs = tuple.getSearchMethod();
         System.out.println();
         System.out.println("-------------------------- BFS diameter --------------------------");
-        System.out.print("From : " + bfs.getOriginNode());
-        System.out.print("To : " + destinationNode);
+        System.out.println("From : " + bfs.getOriginNode());
+        System.out.println("To : " + destinationNode);
         System.out.println("Diameter : "+ bfs.getCount(destinationNode)+" stations");
-        System.out.println("--- Path ---");
-        //System.out.println(bfs.getPath(destinationNode));
+        System.out.println("Path -------------------------------------");
         bfs.printPath(destinationNode);
 
     }
 
 
-    public Tuple<Djikstra,Node> getDjikstraDiameter(){
+    public Tuple<Dijkstra,Node> getDijkstraDiameter(){
         double maxDiameter = 0;
-        Djikstra djikstraDiameter = null;
+        Dijkstra dijkstraDiameter = null;
         Node destDiameter = null;
         for (Node node : this.getListStations()){
-            Djikstra djikstra = new Djikstra(this,node.getNum());
-            Node destinationNode = djikstra.getLongestPathDestination();
-            if(djikstra.isPath(destinationNode)) {
-                double diameter = djikstra.getNodeWeight(destinationNode);
+            Dijkstra dijkstra = new Dijkstra(this,node.getNum());
+            Node destinationNode = dijkstra.getLongestPathDestination();
+            if(dijkstra.isPath(destinationNode)) {
+                double diameter = dijkstra.getNodeWeight(destinationNode);
                 if (maxDiameter < diameter) {
                     maxDiameter = diameter;
-                    djikstraDiameter = djikstra;
+                    dijkstraDiameter = dijkstra;
                     destDiameter = destinationNode;
                 }
             }
         }
-        Tuple<Djikstra,Node> tuple = new Tuple<>(djikstraDiameter,destDiameter);
+        Tuple<Dijkstra,Node> tuple = new Tuple<>(dijkstraDiameter,destDiameter);
         return tuple;
     }
 
-    public void printDjikstraDiameter(){
-        Tuple<Djikstra,Node> tuple = getDjikstraDiameter();
+    public void printDijkstraDiameter(){
+        Tuple<Dijkstra,Node> tuple = getDijkstraDiameter();
         Node destinationNode = tuple.getDestinationNode();
-        Djikstra djikstra = tuple.getSearchMethod();
+        Dijkstra dijkstra = tuple.getSearchMethod();
         System.out.println();
-        System.out.println("-------------------------- Djikstra diameter --------------------------");
-        System.out.print("From : " + djikstra.getOriginNode());
-        System.out.print("To : " + destinationNode);
-        System.out.println("Diameter : "+ djikstra.getNodeWeight(destinationNode)+" km");
-        System.out.println("--- Path ---");
-        //System.out.println(djikstra.getPath(destinationNode));
-        djikstra.printPath(destinationNode);
+        System.out.println("-------------------------- Dijkstra diameter --------------------------");
+        System.out.println("From : " + dijkstra.getOriginNode());
+        System.out.println("To : " + destinationNode);
+        System.out.println("Diameter : "+ dijkstra.getNodeWeight(destinationNode)+" km");
+        System.out.println("Path -------------------------------------");
+        dijkstra.printPath(destinationNode);
     }
 
     public List<UndirectedEdge> getHighestBetweennessEdge(){
