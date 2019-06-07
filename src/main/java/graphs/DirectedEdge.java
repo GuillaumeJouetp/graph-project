@@ -53,6 +53,6 @@ public class DirectedEdge extends Edge {
     }
 
     public String toString(){
-        return "From: "+ getSourceNode().getNom()+" to: "+getDestinationNode().getNom()+" via: "+getType()+" "+getLigne();
+        return "From: "+ getSourceNode().getNom()+" to: "+getDestinationNode().getNom()+" via: "+getType()+" "+getLigne()+" (weight = "+getWeight()+")";
     }
 }

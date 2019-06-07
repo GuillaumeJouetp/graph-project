@@ -6,11 +6,10 @@ import graphs.Node;
 
 import java.util.*;
 
-import static java.lang.Math.max;
-
 public class Dijkstra extends Search{
 
     private Map<Node,Double> nodeWeights;
+
 
     public Dijkstra(Graph graph, String originNode){
         this.originNode = graph.getNode(originNode);
