@@ -4,8 +4,6 @@ import graphs.DirectedEdge;
 import graphs.Node;
 
 import java.util.*;
-import static java.lang.Math.max;
-
 
 public class BFS extends Search {
 
@@ -58,6 +56,5 @@ public class BFS extends Search {
     public Integer getCount(Node node){
         return count.get(node);
     }
-
 
 }

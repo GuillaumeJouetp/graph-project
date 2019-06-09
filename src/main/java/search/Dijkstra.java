@@ -10,7 +10,6 @@ public class Dijkstra extends Search{
 
     private Map<Node,Double> nodeWeights;
 
-
     public Dijkstra(Graph graph, String originNode){
         this.originNode = graph.getNode(originNode);
         this.path = new HashMap<>();
@@ -89,25 +88,5 @@ public class Dijkstra extends Search{
     public Double getNodeWeight(Node node){
         return nodeWeights.get(node);
     }
-    /*
-    public double getLongestPath(){
-        Set keys = nodeWeights.keySet();
-        double maxValue = 0.;
-        for (Object key: keys){
-            maxValue = max(maxValue,nodeWeights.get(key));
-        }
-        return maxValue;
-    }
 
-
-    public void printPath(Node destination){
-        System.out.println("From : " + originNode.getNom());
-        System.out.println("To : " + destination.getNom());
-        System.out.println("Weight : " + this.nodeWeights.get(destination));
-        System.out.println(getPath(destination));
-    }
-    */
-    public Map<Node, Double> getNodeWeights() {
-        return nodeWeights;
-    }
 }
